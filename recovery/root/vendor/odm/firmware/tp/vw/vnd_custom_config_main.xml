@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <custom>
-	<version>2025112601</version>
+	<version>2026021201</version>
 	<fwk-version>v5.0.0</fwk-version>
 	<modules id="charger" enable="true" hint="support charger detect?">
 		<param name="default" type="bool" hint="charger off: 0, charger on: 1">
@@ -188,11 +188,6 @@
 			<value>1</value>
 		</param>
 	</modules>
-	<modules id="fp_slide_enroll_support" enable="true" hint="">
-		<param name="default" type="bool" hint="">
-			<value>1</value>
-		</param>
-	</modules>
 	<modules id="game_info_support" enable="true" hint="">
 		<param name="default" type="bool" hint="">
 			<value>1</value>
@@ -209,6 +204,12 @@
 		</param>
 		<param name="supports" type="[u32]" hint="">
 			<value>0,1</value>
+		</param>
+	</modules>
+	<modules id="idle_holdofftime_support" enable="true" hint="">
+		<!-- ms -->
+		<param name="default" type="bool" hint="">
+			<value>300</value>
 		</param>
 	</modules>
 	<modules id="vsync_test_support" enable="true" hint="">

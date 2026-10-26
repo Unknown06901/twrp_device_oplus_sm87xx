@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <algo>
-	<version>2025122901</version>
+	<version>2026010501</version>
 	<algo-version>v2.0.12.202</algo-version>
 		<modules id="AlgoParam" enable="true" hint="">
 			<param name="prjId" type="u32" hint="">
@@ -949,6 +949,9 @@
 			<param name="prevention,large_exit_condition" type="u32" hint="" >
 				<value>12,8,2</value>
 			</param>
+			<param name="prevention,large_exit_condition_game" type="u32" hint="" >
+				<value>100,8,1,0</value>
+			</param>
 			<param name="prevention,single_channel_width" type="u32" hint="" >
 				<value>603,603</value>
 			</param>
@@ -976,11 +979,17 @@
 			<param name="prevention,long_strict_edge_condition" type="u32" hint="" >
 				<value>190,80</value>
 			</param>
+			<param name="prevention,long_strict_edge_condition_game" type="u32" hint="" >
+				<value>255,120</value>
+			</param>
 			<param name="prevention,short_strict_edge_condition" type="u32" hint="" >
 				<value>160,80</value>
 			</param>
 			<param name="prevention,large_strict_exit_condition" type="u32" hint="" >
 				<value>6,6</value>
+			</param>
+			<param name="prevention,large_strict_exit_condition_game" type="u32" hint="" >
+				<value>100,6</value>
 			</param>
 			<param name="prevention,corner_move_rejected" type="u32" hint="" >
 				<value>0</value>
@@ -1050,6 +1059,9 @@
 			</param>
 			<param name="prevention,long_edge_condition_recli" type="u32" hint="" >
 				<value>179,90,120,80</value>
+			</param>
+			<param name="prevention,long_edge_condition_game" type="u32" hint="" >
+				<value>255,90,120,80,0</value>
 			</param>
 			<param name="prevention,large_corner_judge_condition_ime" type="u32" hint="" >
 				<value>300,0,0,0,0</value>

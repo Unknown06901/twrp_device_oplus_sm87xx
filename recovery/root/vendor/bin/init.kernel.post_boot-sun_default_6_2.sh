@@ -55,7 +55,7 @@ if [ -d /proc/sys/walt ]; then
 	echo 30 > /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres
 	echo 100 > /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms
 	echo 6 > /sys/devices/system/cpu/cpu0/core_ctl/task_thres
-	echo 0 0 0 0 1 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
+	echo 0 0 1 1 0 0 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
 	echo 0xFF > /sys/devices/system/cpu/cpu0/core_ctl/nrrun_cpu_mask
 	echo 0x00 > /sys/devices/system/cpu/cpu0/core_ctl/nrrun_cpu_misfit_mask
 	echo 0x00 > /sys/devices/system/cpu/cpu0/core_ctl/assist_cpu_mask
@@ -95,8 +95,6 @@ if [ -d /proc/sys/walt ]; then
 	echo 8500000 1000000 1000000 1000000 1000000 1000000 2000000 2000000 > /proc/sys/walt/sched_util_busy_hyst_cpu_ns
 	echo 255 > /proc/sys/walt/sched_util_busy_hysteresis_enable_cpus
 	echo 30 30 30 30 30 30 15 15 > /proc/sys/walt/sched_util_busy_hyst_cpu_util
-	echo 255 > /proc/sys/walt/sched_legacy_smart_freq_hysteresis_enable_cpus
-	echo 8500000 4000000 4000000 4000000 4000000 4000000 2000000 2000000 > /proc/sys/walt/sched_legacy_smart_freq_hyst_cpu_ns
 	echo 40 > /proc/sys/walt/sched_cluster_util_thres_pct
 	echo 30 > /proc/sys/walt/sched_idle_enough
 	echo 10 > /proc/sys/walt/sched_ed_boost
@@ -144,6 +142,10 @@ if [ -d /proc/sys/walt ]; then
 
 	echo 1 > /sys/devices/system/cpu/cpufreq/policy0/walt/pl
 	echo 1 > /sys/devices/system/cpu/cpufreq/policy6/walt/pl
+
+	#zone base target load
+	echo 1324800 80 1747200 80 2112000 80 2438400 80 > /sys/devices/system/cpu/cpufreq/policy0/walt/zone_max_util_pct
+	echo 1900800 80 2380800 80 2784000 80 3264000 80 3628800 80 > /sys/devices/system/cpu/cpufreq/policy6/walt/zone_max_util_pct
 
 	if [ $rev == "1.0" ] || [ $rev == "1.1" ]; then
 		echo 787200 > /sys/devices/system/cpu/cpufreq/policy0/walt/rtg_boost_freq
@@ -256,5 +258,7 @@ case "$console_config" in
 esac
 
 echo 1 > /proc/oplus_scheduler/sched_assist/silver_perf_core
+
+chown system system /proc/oplus_cl/cl_glthread
 
 setprop vendor.post_boot.parsed 1
