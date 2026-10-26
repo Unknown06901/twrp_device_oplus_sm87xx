@@ -84,7 +84,8 @@ jobs:
 
     - name: Setup zram
       run: |
-        sudo apt install linux-modules-extra-$(uname -r) zram-tools -y
+        sudo apt-get update -qq
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq linux-modules-extra-$(uname -r) zram-tools
         sudo modprobe zram
         sudo sed -i 's/^#PERCENT=50/PERCENT=90/' /etc/default/zramswap
         sudo sed -i 's/^#PRIORITY=100/PRIORITY=1000/' /etc/default/zramswap
@@ -93,9 +94,10 @@ jobs:
 
     - name: Setup environment
       run: |
-        export DEBIAN_FRONTEND=noninteractive
-        sudo apt update && sudo apt upgrade -y
-        sudo apt install repo -y
+        mkdir -p ~/bin
+        curl -sSfL https://storage.googleapis.com/git-repo-downloads/repo -o ~/bin/repo
+        chmod +x ~/bin/repo
+        echo "$HOME/bin" >> "$GITHUB_PATH"
         git config --global user.name ${{ github.actor }}
         git config --global user.email ${{ github.actor }}@users.noreply.github.com
 
