@@ -2,12 +2,9 @@
 # All Rights Reserved.
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 
-# KeyMint binds keys to ro.build.version.release and the patch levels, which
-# override-spl.sh copies from the installed system/vendor. Start it only after
-# that (crypto.ready), so it never sees TWRP's placeholder version and asks to
-# upgrade (rewrite) the user's keys.
-on property:crypto.ready=1
-    start vendor.keymint-qti
+# Started by override-spl.sh once ro.build.version.release and the patch
+# levels match the installed system/vendor, so KeyMint never sees TWRP's
+# placeholder version and asks to upgrade (rewrite) the user's keys.
 
 service vendor.keymint-qti /vendor/bin/hw/android.hardware.security.keymint-service-qti
     class early_hal

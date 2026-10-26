@@ -76,4 +76,7 @@ SearchAndOverrideProp "/system_temp" "$DYNAMICSYS" "ro.build.version.release"
 setprop crypto.ready 1
 log "crypto.ready 1"
 
+start vendor.keymint-qti
+log "started vendor.keymint-qti"
+
 exit 0
