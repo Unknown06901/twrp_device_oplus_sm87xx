@@ -71,6 +71,7 @@ SearchAndOverrideProp(){
 
 SearchAndOverrideProp "/vendor_temp" "$DYNAMICVEN" "ro.vendor.build.security_patch"
 SearchAndOverrideProp "/system_temp" "$DYNAMICSYS" "ro.build.version.security_patch"
+SearchAndOverrideProp "/system_temp" "$DYNAMICSYS" "ro.build.version.release"
 
 setprop crypto.ready 1
 log "crypto.ready 1"
