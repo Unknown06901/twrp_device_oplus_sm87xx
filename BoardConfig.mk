@@ -131,9 +131,14 @@ TW_INCLUDE_NTFS_3G          := true
 TW_NO_EXFAT_FUSE            := true
 
 # Version
-PLATFORM_VERSION                := 99.87.36
+# These end up in the recovery header os_version (and its AVB props), which the
+# bootloader hands to KeyMint as the boot patch level. Keep them equal to the
+# stock init_boot (OxygenOS 16, 2026-03); override-spl.sh refuses to start
+# KeyMint if the installed init_boot differs (re-stamp: tools/stamp_recovery.py).
+# The runtime ro.build.version.* values KeyMint reads come from the installed ROM.
+PLATFORM_VERSION                := 15
 PLATFORM_VERSION_LAST_STABLE    := $(PLATFORM_VERSION)
-PLATFORM_SECURITY_PATCH         := 2099-12-31
+PLATFORM_SECURITY_PATCH         := 2026-03-01
 VENDOR_SECURITY_PATCH           := $(PLATFORM_SECURITY_PATCH)
 TW_DEVICE_VERSION               := Nord6
 
