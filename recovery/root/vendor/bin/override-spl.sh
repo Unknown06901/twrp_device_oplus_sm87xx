@@ -73,6 +73,32 @@ SearchAndOverrideProp "/vendor_temp" "$DYNAMICVEN" "ro.vendor.build.security_pat
 SearchAndOverrideProp "/system_temp" "$DYNAMICSYS" "ro.build.version.security_patch"
 SearchAndOverrideProp "/system_temp" "$DYNAMICSYS" "ro.build.version.release"
 
+# OPLUS imports /mnt/vendor/my_manifest/build.prop from odm/build.prop, after
+# vendor and system, so its values are what KeyMint sees in Android (e.g. a
+# ported ROM's my_manifest raising ro.vendor.build.security_patch). Apply them
+# last; KeyMint must get exactly Android's values or the user's keys look
+# rolled back.
+ApplyManifestOverrides(){
+	DYNAMICMAN="/dev/block/mapper/my_manifest$SLOT"
+	mkdir -p /manifest_temp
+	if ! mount -o ro "$DYNAMICMAN" /manifest_temp; then
+		log "Failed to mount $DYNAMICMAN, keeping vendor/system values"
+		rm -rf /manifest_temp
+		return
+	fi
+	for PROP in ro.vendor.build.security_patch ro.build.version.security_patch ro.build.version.release; do
+		VAL=$(grep -m1 "^$PROP=" /manifest_temp/build.prop 2>/dev/null | cut -d'=' -f2)
+		if [ -n "$VAL" ]; then
+			resetprop "$PROP" "$VAL"
+			log "my_manifest: override $PROP to $VAL"
+		fi
+	done
+	umount -f -l /manifest_temp 2>/dev/null
+	rm -rf /manifest_temp
+}
+
+ApplyManifestOverrides
+
 setprop crypto.ready 1
 log "crypto.ready 1"
 
